@@ -1,5 +1,8 @@
 <script setup>
 import { useStorage } from '@/composables/useStorage';
+import { useCounterStore  } from '@/store/CounterStore';
+
+let counter = useCounterStore();
 
 let anime = useStorage('anime')
 let movie = useStorage('movie')
@@ -14,5 +17,12 @@ let movie = useStorage('movie')
      <p>
       What is your favorite Movie? <input type="text" v-model="movie">
     </p>
+
+    <p>{{ counter.count }}</p>
+
+    <button
+      :disabled="!counter.remaining"
+     @click="counter.increment()"
+     >Increment ({{  counter.remaining }} remaining)</button>
   </main>
 </template>
