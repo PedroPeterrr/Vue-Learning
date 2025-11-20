@@ -27,7 +27,7 @@ interface Stats {
 
 export function useStats() {
   const { data: stats } = useFetch<Stats>(
-    'http://localhost:8000/site-stats',
+    'http://localhost:8000/api/site-stats',
     { headers: { Accept: 'application/json' } }
   )
 

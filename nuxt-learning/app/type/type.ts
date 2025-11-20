@@ -36,3 +36,12 @@ export interface Destination {
   website: string
   company: { name: string; catchPhrase: string }
 }
+
+export interface Book {
+  isbn: string
+  title: string
+  author_id: number
+  publisher_id: number | null
+  year_pub: number
+  description: string | null
+}

@@ -1,6 +1,15 @@
 <script setup lang="ts">
 import type { Destination } from '@/type/type'
 
+useHead({
+  title: 'Destination',
+  meta: [
+    { name: 'description', content: 'List of Destination with details.' },
+    { property: 'og:title', content: 'User Dashboard' },
+    { property: 'og:description', content: 'Search and view user details.' },
+  ]
+})
+
 const search = ref('')
 const { filteredDestinations, loading } = useDestinations(search)
 const selected = ref<Destination | null>(null)
