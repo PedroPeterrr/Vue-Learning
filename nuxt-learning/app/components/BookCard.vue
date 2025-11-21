@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { Book } from '@/type/type'
-
 interface Props {
   book: Book
 }

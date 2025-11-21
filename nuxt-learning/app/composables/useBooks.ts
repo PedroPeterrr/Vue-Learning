@@ -16,10 +16,10 @@ export function useBooks() {
       retry: 1,
       retryDelay: 500,
       onRequestError({ error }) {
-        console.error('Request failed:', error)
+        window.alert(`Request Error\nNetwork request failed: ${error?.message || error || 'Unknown error'}`)
       },
       onResponseError({ response }) {
-        console.error('Response error:', response.status)
+        window.alert(`Response Error\nHTTP ${response.status}: ${response.statusText || 'Request failed'}`)
       }
     }),
     {
@@ -37,12 +37,12 @@ export function useBooks() {
         timeout: 10000, // 10 second timeout for POST requests
         retry: 0, // Don't retry POST requests
         onRequestError({ error }) {
-          console.error('Request failed:', error)
+          window.alert(`Request Error\nNetwork request failed: ${error?.message || error || 'Unknown error'}`)
         }
       })
 
       if (error.value) {
-        console.error('Error creating book:', error.value)
+        window.alert(`Book Creation Error\n${error.value?.message || error.value || 'Failed to create book'}`)
         
         // Check if validation error for ISBN exists
         const isbnError = error.value?.data?.errors?.isbn?.[0]
@@ -60,8 +60,7 @@ export function useBooks() {
 
       return { data: data.value }
     } catch (err) {
-      console.error(err)
-      alert('Connection Error\nUnable to connect to the server. Please check if the backend is running.')
+      window.alert('Connection Error\nUnable to connect to the server. Please check if the backend is running.')
       return { error: err }
     }
   }
@@ -86,8 +85,7 @@ export function useBooks() {
         await refresh()
         return true
       } catch (err) {
-        console.error('Delete error:', err)
-        alert('Error!\nUnable to connect to the server.')
+        window.alert('Delete Error\nUnable to connect to the server. Please check if the backend is running.')
         return false
       }
     }

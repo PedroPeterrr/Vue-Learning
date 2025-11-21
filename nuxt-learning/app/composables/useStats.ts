@@ -24,17 +24,13 @@ import type{ Stats } from '@/type/type';
 
 export function useStats() {
   const { data: stats, refresh } = useFetch<Stats>(
-    "http://localhost:8000/api/site-stats",
+    "/api/site-stats",
     { headers: { Accept: "application/json" } }
   );
 
   const updateTitle = async (id: number, title: string) => {
-    await $fetch(`http://localhost:8000/api/site-stats/${id}`, {
+    await $fetch(`/api/site-stats/${id}`, {
       method: "PATCH",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
       body: { title },
     });
 
@@ -43,12 +39,8 @@ export function useStats() {
 
   const createContent = async (title: string, type: "series" | "lesson") => {
     try {
-      await $fetch("http://localhost:8000/api/site-stats", {
+      await $fetch("/api/site-stats", {
         method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
         body: {
           title,
           type,
@@ -71,9 +63,8 @@ export function useStats() {
 
     if (result) {
       try {
-        await $fetch(`http://localhost:8000/api/site-stats/${id}`, {
-          method: 'DELETE',
-          headers: { Accept: 'application/json' }
+        await $fetch(`/api/site-stats/${id}`, {
+          method: 'DELETE'
         });
 
         alert('Deleted!\n' + `${type} has been deleted.`);
