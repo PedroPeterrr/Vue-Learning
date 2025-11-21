@@ -20,19 +20,77 @@
 //   return { series, lessons }
 // }
 
-interface Stats {
-  series: number
-  lessons: number
-}
+import type{ Stats } from '@/type/type';
 
 export function useStats() {
-  const { data: stats } = useFetch<Stats>(
-    'http://localhost:8000/api/site-stats',
-    { headers: { Accept: 'application/json' } }
-  )
+  const { data: stats, refresh } = useFetch<Stats>(
+    "http://localhost:8000/api/site-stats",
+    { headers: { Accept: "application/json" } }
+  );
 
-  const series = computed(() => stats.value?.series ?? 'N/A')
-  const lessons = computed(() => stats.value?.lessons ?? 'N/A')
+  const updateTitle = async (id: number, title: string) => {
+    await $fetch(`http://localhost:8000/api/site-stats/${id}`, {
+      method: "PATCH",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: { title },
+    });
 
-  return { series, lessons}
+    refresh();
+  };
+
+  const createContent = async (title: string, type: "series" | "lesson") => {
+    try {
+      await $fetch("http://localhost:8000/api/site-stats", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: {
+          title,
+          type,
+        },
+      });
+
+      // Show success modal
+      alert('Success!\nStats created successfully!');
+
+      // Refresh the stats after creating new content
+      refresh();
+    } catch (error) {
+      alert('Error\nSomething went wrong.');
+    }
+  };
+
+  const deleteContent = async (id: number, type: 'series' | 'lesson') => {
+    // Show SweetAlert confirmation
+    const result = confirm(`Delete ${type}?\nAre you sure you want to delete this ${type}? This action cannot be undone.`);
+
+    if (result) {
+      try {
+        await $fetch(`http://localhost:8000/api/site-stats/${id}`, {
+          method: 'DELETE',
+          headers: { Accept: 'application/json' }
+        });
+
+        alert('Deleted!\n' + `${type} has been deleted.`);
+
+        refresh(); // Refresh stats after deletion
+      } catch (err) {
+        alert('Error!\n' + `Failed to delete ${type}.`);
+      }
+    }
+  };
+
+  return {
+    stats,
+    series: computed(() => stats.value?.series ?? []),
+    lessons: computed(() => stats.value?.lessons ?? []),
+    updateTitle,
+    createContent,
+    deleteContent
+  };
 }

@@ -1,5 +1,7 @@
 <script setup lang="ts">
-const props = defineProps<{
+import type { Destination } from '@/type/type';
+
+defineProps<{
   destination: Destination
   onView: (dest: Destination) => void
 }>()

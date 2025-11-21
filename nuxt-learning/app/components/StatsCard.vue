@@ -1,15 +1,40 @@
-<template>
-  <ul class="text-white">
-    <li><strong>Total Series:</strong> {{ series ?? 'Loading...' }}</li>
-    <li><strong>Total Lessons:</strong> {{ lessons ?? 'Loading...' }}</li>
-  </ul>
-</template>
+<script setup lang="ts">
+import type { Series, Lesson } from '@/type/type';
 
-<script lang="ts" setup>
-interface Props {
-  series: number | string | null
-  lessons: number | string | null
+defineProps<{
+  series: Series[]
+  lessons: Lesson[]
+}>();
+
+const emit = defineEmits(['updateTitle', 'addSeries', 'addLesson', 'deleteContent', 'openModal']);
+
+const handleSave = (payload: { id: number; title: string }) => {
+  emit('updateTitle', payload.id, payload.title);
 }
 
-const props = defineProps<Props>()
+const handleDelete = (payload: { type: 'series' | 'lesson'; id: number }) =>{
+  emit('deleteContent', payload);
+} 
 </script>
+
+<template>
+  <div class="flex flex-col lg:flex-row gap-2">
+    <StatsContentSection
+      title="Series"
+      :items="series"
+      type="series"
+      @save="handleSave"
+      @delete="handleDelete"
+      @openModal="(type) => emit('openModal', type)"
+    />
+    
+    <StatsContentSection
+      title="Lesson"
+      :items="lessons"
+      type="lesson"
+      @save="handleSave"
+      @delete="handleDelete"
+      @openModal="(type) => emit('openModal', type)"
+    />
+  </div>
+</template>

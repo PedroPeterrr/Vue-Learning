@@ -45,3 +45,19 @@ export interface Book {
   year_pub: number
   description: string | null
 }
+
+export interface Series {
+  id: number
+  title: string
+}
+
+export interface Lesson {
+  id: number
+  title: string
+  series_id: number | null
+}
+
+export interface Stats {
+  series: Series[]
+  lessons: Lesson[]
+}
