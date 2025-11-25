@@ -1,0 +1,1 @@
+This project is a Nuxt.js learning application that demonstrates full-stack development with Vue components for managing books, destinations, and user statistics. It includes server-side API endpoints, unit tests with Vitest, and Capacitor integration for mobile deployment.
