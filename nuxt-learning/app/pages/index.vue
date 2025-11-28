@@ -1,13 +1,11 @@
 <script lang="ts" setup>
-  import { useHead } from '#app'
+  import { useSeoMeta } from '#app'
 
-  useHead({
+  useSeoMeta({
     title: 'Laravel Stats Dashboard',
-    meta: [
-      { name: 'description', content: 'View total series and lessons from Laravel backend.' },
-      { property: 'og:title', content: 'Laravel Stats Dashboard' },
-      { property: 'og:description', content: 'View total series and lessons from Laravel backend.' },
-    ],
+    description: 'View total series and lessons from Laravel backend.',
+    ogTitle: 'Laravel Stats Dashboard',
+    ogDescription: 'View total series and lessons from Laravel backend.',
   })
 
   const handleUpdateTitle = (id: number, title: string) => {

@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import type { Book } from '@/type/type'
 
-useHead({
+useSeoMeta({
   title: 'Books Management',
-  meta: [
-    { name: 'description', content: 'Management' },
-    { property: 'og:title', content: 'User Dashboard' },
-    { property: 'og:description', content: 'Search and view user details.' },
-  ]
+  description: 'Manage your book collection with detailed information.',
+  ogTitle: 'Books Management',
+  ogDescription: 'Search and view book details.',
 })
 
 // Initialize composables

@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import type { UserData } from '@/type/type'
 
-useHead({
+useSeoMeta({
   title: 'User Dashboard',
-  meta: [
-    { name: 'description', content: 'List of users with details.' },
-    { property: 'og:title', content: 'User Dashboard' },
-    { property: 'og:description', content: 'Search and view user details.' },
-  ]
+  description: 'List of users with details.',
+  ogTitle: 'User Dashboard',
+  ogDescription: 'Search and view user details.',
 })
 
 const search = ref('')
