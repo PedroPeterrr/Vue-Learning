@@ -15,7 +15,7 @@ const openModal = () => emit('openModal', props.type);
 </script>
 
 <template>
-  <section class="bg-gray-900/80 backdrop-blur-sm rounded-lg p-6 border border-gray-700">
+  <section class="bg-gray-900/80 backdrop-blur-sm rounded-lg p-6 border border-gray-700 min-h-6 min-w-[430px]">
     <div class="flex items-center gap-3 mb-4">
       <div :class="['w-2 h-8 rounded', type === 'series' ? 'bg-blue-500' : 'bg-green-500']"></div>
       <div class="flex justify-between w-full">
