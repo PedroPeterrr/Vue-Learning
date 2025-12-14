@@ -12,9 +12,11 @@ export default defineNuxtConfig({
       viewport: 'width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes',
     },
   },
+
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
   css: ['./app/assets/css/main.css'],
+
   vite: {
     plugins: [
       tailwindcss(),
@@ -29,4 +31,6 @@ export default defineNuxtConfig({
       },
     },
   },
+
+  modules: ['@nuxt/image'],
 })
